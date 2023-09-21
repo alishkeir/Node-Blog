@@ -40,8 +40,65 @@ router.get('', async (req, res) => {
   }
 });
 
+/**
+ * GET /
+ * Post :id
+ */
+router.get('/post/:id', async (req, res) => {
+  try {
+    let slug = req.params.id;
+
+    const data = await Post.findById({ _id: slug }).exec();
+
+    const locals = {
+      title: data.title,
+      description: 'Simple Blog created with NodeJs, Express & MongoDb.',
+    };
+
+    res.render('pages/post', {
+      locals,
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/**
+ * GET /
+ * Post - searchTerm
+ */
+router.post('/search', async (req, res) => {
+  try {
+    const locals = {
+      title: 'Search',
+      description: 'Simple Blog created with NodeJs, Express & MongoDb.',
+    };
+
+    let searchTerm = req.body.searchTerm.replace(/[^a-zA-Z0-9 ]/g, '');
+
+    const data = await Post.find({
+      $or: [
+        { title: { $regex: new RegExp(searchTerm, 'i') } },
+        { body: { $regex: new RegExp(searchTerm, 'i') } },
+      ],
+    });
+
+    console.log(searchTerm);
+
+    res.render('pages/search', { locals, data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.get('/about', (req, res) => {
-  res.render('pages/about');
+  const locals = {
+    title: 'NodeJs Blog',
+    description: 'Simple Blog created with NodeJs, Express & MongoDb.',
+  };
+
+  res.render('pages/about', { locals });
 });
 
 module.exports = router;

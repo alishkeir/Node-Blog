@@ -321,11 +321,13 @@ img {
 }
 
 #searchClose {
+  cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
   color: var(--gray-light);
   padding: 15px;
+  user-select: none;
 }
 
 .pagination {
