@@ -39,7 +39,19 @@ router.get('/admin', async (req, res) => {
       description: 'Simple Blog created with NodeJs, Express & MongoDb.',
     };
 
-    res.render('pages/admin/index', { locals, layout: adminLayout });
+    let canRegister = false;
+
+    if (req.query.register) {
+      if (req.query.register == 'true') {
+        canRegister = true;
+      }
+    }
+
+    res.render('pages/admin/index', {
+      locals,
+      layout: adminLayout,
+      canRegister,
+    });
   } catch (error) {
     console.log(error);
   }
