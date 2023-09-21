@@ -22,6 +22,7 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs'); // change the view engine to ejs (template engine)
 
 app.use('/', require('./server/routes/main'));
+app.use('/', require('./server/routes/admin'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

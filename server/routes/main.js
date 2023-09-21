@@ -65,7 +65,6 @@ router.get('/post/:id', async (req, res) => {
 });
 
 /**
- * GET /
  * Post - searchTerm
  */
 router.post('/search', async (req, res) => {
@@ -84,14 +83,16 @@ router.post('/search', async (req, res) => {
       ],
     });
 
-    console.log(searchTerm);
-
     res.render('pages/search', { locals, data });
   } catch (error) {
     console.log(error);
   }
 });
 
+/**
+ * GET /
+ * About page
+ */
 router.get('/about', (req, res) => {
   const locals = {
     title: 'NodeJs Blog',
